@@ -7,19 +7,120 @@ typedef struct Node
     struct Node* p;
 } Node;
 
-Node* inicio = NULL;
+Node* init = NULL;
 
-// void print()
-// {
-//     if (inicio == NULL)
-//     {
-//         printf("Lista Ligada Vazia!");
-//     } else {
+void void_()
+{
+    if(init == NULL)
+    {
+        printf("Lista Ligada está Vazia! \n");
+    } else {
+        printf("Lista Ligada não está Vazia! \n");
+    }
+}
 
-//     }
-// }
+void size_()
+{
+    if (init == NULL)
+    {
+        printf("Lista Ligada Vazia! \n");
+    } else {
+        Node* size = init;
+        int qtd = 0;
+        while(size != NULL)
+        {
+            qtd++;
+            size = size->p;
+        }
+        printf("Quantidade de Valores na Lista Ligada: %d \n", qtd); 
+    }
+}
 
-void insert()
+void print_()
+{
+    if (init == NULL)
+    {
+        printf("Lista Ligada Vazia! \n");
+    } else {
+        Node* print = init;
+        int value = 1;
+        while(print != NULL)
+        {
+            printf("%d° Valor - %d \n", value, print->number);
+            print = print->p;
+            
+            value++;
+        }
+    }
+}
+
+void search_()
+{
+    if(init == NULL){
+        printf("Lista Ligada Vazia! \n");
+    } else {
+        int value = 0, position = 0, not_found = 0;
+        printf("Informe o Valor a ser Buscado na Lista Ligada: ");
+        scanf("%d", &value);
+
+        Node* search = init;
+        while(search != NULL)
+        {
+            if (search->number == value)
+            {
+                printf("Valor %d Encontrado na Posição %d \n", value, position);
+                not_found = 1;
+                break;
+            } else {
+                search = search->p;
+                not_found = 0;
+            }
+
+            position++;
+        }
+
+        if (not_found == 0)
+        {
+            printf("Valor %d não Encontrado! \n", value);
+        }
+    }
+}
+
+void del_()
+{
+    if (init == NULL)
+    {
+        printf("Lista Ligada Vazia! \n");
+    } else {
+        int value = 0, not_found = 0;
+        printf("Informe o Valor a ser Removido da Lista Ligada: ");
+        scanf("%d", &value);
+
+        Node* del = init;
+
+        if(del->number == value)
+        {
+            init = init->p;
+            free(del);
+        } else {
+            while(del->p != NULL)
+            {
+                if(value == del->p->number)
+                {
+                    Node* t = del->p;
+                    del->p = t->p;
+                    free(t);
+                    not_found = 1;
+                } else {
+                    del = del->p;
+                    not_found = 0;
+                }
+            }
+        }
+    }
+}
+
+void insert_()
 {
     Node* new = (Node*)malloc(sizeof(Node));
     int n = 0;
@@ -28,12 +129,15 @@ void insert()
     scanf("%d", &n);
     new->number = n;
 
-    if (inicio == NULL)
+    if (init == NULL)
     {
-       
+        init = new;
+        init->p = NULL;
     } else {
-        
+        new->p = init;
+        init = new;
     }
+
 }
 
 int menu()
@@ -54,22 +158,22 @@ int main()
         switch (value)
         {
         case 1:
-            insert();
+            insert_();
             break;
-        // case 2:
-        //     del();
-        //     break;
-        // case 3:
-        //     search();
-        //     break;
-        // case 4:
-        //     print();
-        //     break;
-        // case 5:
-        //     size();
-        //     break;
-        // case 6:
-        //     void_();
+        case 2:
+            del_();
+            break;
+        case 3:
+            search_();
+            break;
+        case 4:
+            print_();
+            break;
+        case 5:
+            size_();
+            break;
+        case 6:
+            void_();
         case 0:
             break;
         default:
