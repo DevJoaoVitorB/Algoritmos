@@ -16,7 +16,7 @@ void void_()
         printf("Lista Ligada está Vazia! \n");
     } else {
         printf("Lista Ligada não está Vazia! \n");
-    }
+    }  
 }
 
 void size_()
